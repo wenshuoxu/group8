@@ -1,0 +1,7 @@
+# 3.2 Data Preprocessing: Clean raw transaction data for reliable analysis
+df = df.dropna(subset=['Customer ID'])
+df = df[df['Quantity'] > 0]
+df = df[df['Price'] > 0]
+df = df[~df['InvoiceNo'].str.startswith('C', na=False)]
+df['TotalSpend'] = df['Quantity'] * df['Price']
+df['InvoiceDate'] = pd.to_datetime(df['InvoiceDate'])
