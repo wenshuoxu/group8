@@ -1,0 +1,8 @@
+# RFM Calculation
+snapshot_date = df['InvoiceDate'].max()
+rfm_df = df.groupby('Customer ID').agg(
+    Recency=('InvoiceDate', lambda x: (snapshot_date - x.max()).days),
+    Frequency=('InvoiceNo', 'nunique'),
+    Monetary=('TotalSpend', 'sum')
+).reset_index()
+rfm_df = rfm_df[rfm_df['Monetary'] > 0]
