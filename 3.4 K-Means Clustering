@@ -1,0 +1,7 @@
+# K-Means Clustering
+scaler = StandardScaler()
+rfm_scaled = scaler.fit_transform(rfm_df[['Recency', 'Frequency', 'Monetary']])
+kmeans = KMeans(n_clusters=4, random_state=42)
+rfm_df['Cluster'] = kmeans.fit_predict(rfm_scaled)
+sil_score = silhouette_score(rfm_scaled, rfm_df['Cluster'])
+print(f"Silhouette Score: {sil_score:.3f}")
